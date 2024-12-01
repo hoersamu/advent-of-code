@@ -14,7 +14,7 @@ func DayOne() {
 }
 
 func readDayOneInput() [][]string {
-	return ReadCsvFile("./01.input.csv")
+	return ReadCsvFile("./day01.input.csv")
 }
 
 func dayOnePartOne() {
