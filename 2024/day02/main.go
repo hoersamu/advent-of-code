@@ -1,9 +1,14 @@
 package main
 
-func DayTwo() (int, int) {
-	solution1 := DayTwoPartOne()
-	solution2 := DayTwoPartTwo()
-	return solution1, solution2
+import (
+	"bufio"
+	"common"
+	"strconv"
+)
+
+func main() {
+	common.Solve(Part1)
+	common.Solve(Part2)
 }
 
 func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
@@ -11,7 +16,7 @@ func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
 
 	lineWithoutIndex := line
 	if skipIndex != -1 {
-		lineWithoutIndex = RemoveIndex(line, skipIndex)
+		lineWithoutIndex = common.RemoveIndex(line, skipIndex)
 	}
 
 	for i := 0; i < len(lineWithoutIndex)-1; i++ {
@@ -22,7 +27,7 @@ func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
 		num1 := lineWithoutIndex[i] * multiplier
 		num2 := lineWithoutIndex[i+1] * multiplier
 
-		distance := GetDistance(num1, num2)
+		distance := common.GetDistance(num1, num2)
 
 		if num1 > num2 || distance < 1 || distance > 3 {
 			isSafe = false
@@ -32,45 +37,31 @@ func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
 	return isSafe
 }
 
-func DayTwoPartOne() int {
-	lines := ReadFileWithDelimiterAsInt(
-		// "./day02.example.input.txt",
-		"./day02.input.txt",
-		" ",
-	)
+func Part1(scanner *bufio.Scanner) string {
+	records := common.ScanWithDelimitersAsInt(scanner, " ")
 
 	safeCount := 0
 
-	for _, line := range lines {
+	for _, line := range records {
 		isLineAscending := line[0] < line[1]
 
 		isSafe := isLineSafe(line, isLineAscending, -1)
-
 		if isSafe {
 			safeCount++
 		}
 	}
 
-	return safeCount
+	return strconv.Itoa(safeCount)
 }
 
-func DayTwoPartTwo() int {
-	lines := ReadFileWithDelimiterAsInt(
-		// "./day02.example.input.txt",
-		"./day02.input.txt",
-		" ",
-	)
+func Part2(scanner *bufio.Scanner) string {
+	records := common.ScanWithDelimitersAsInt(scanner, " ")
 
 	safeCount := 0
 
-	for _, line := range lines {
+	for _, line := range records {
 		for i := -1; i < len(line); i++ {
-			isSafe := isLineSafe(line, true, i)
-			if isSafe {
-				safeCount++
-				break
-			}
-			isSafe = isLineSafe(line, false, i)
+			isSafe := isLineSafe(line, true, i) || isLineSafe(line, false, i)
 			if isSafe {
 				safeCount++
 				break
@@ -78,5 +69,5 @@ func DayTwoPartTwo() int {
 		}
 	}
 
-	return safeCount
+	return strconv.Itoa(safeCount)
 }

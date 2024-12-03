@@ -1,0 +1,19 @@
+currentDay := shell("date '+%d'")
+
+[private]
+default:
+  just --list
+
+new day=currentDay:
+  cp -r template/ day{{day}}
+  sed -i '' "1s/.*/module day{{day}}/" day{{day}}/go.mod
+  go work use day{{day}}
+
+test day=currentDay:
+  go test day{{day}}
+
+run day=currentDay:
+  cd day{{day}}; go run main.go
+
+benchmark day=currentDay:
+  go test day{{day}} -bench=.
