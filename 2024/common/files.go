@@ -48,3 +48,11 @@ func ScanToString(scanner *bufio.Scanner) string {
 	}
 	return builder.String()
 }
+
+func ScanToLines(scanner *bufio.Scanner) []string {
+	lines := []string{}
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	return lines
+}
