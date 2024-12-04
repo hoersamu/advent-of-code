@@ -22,7 +22,6 @@ func Part1(scanner *bufio.Scanner) string {
 	// Single loop to check all directions
 	for row := 0; row < rows; row++ {
 		for col := 0; col < cols; col++ {
-			// Check all 8 directions from current position
 			directions := [][2]int{
 				{0, 1},  // right
 				{1, 0},  // down
