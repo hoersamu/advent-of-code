@@ -1,13 +1,9 @@
 package common
 
-import "math"
-
-func RemoveIndex(slice []int, s int) []int {
-	result := make([]int, 0, len(slice)-1)
-	result = append(result, slice[:s]...)
-	result = append(result, slice[s+1:]...)
-	return result
-}
+import (
+	"math"
+	"strconv"
+)
 
 func GetDistance(a int, b int) int {
 	return int(math.Abs(float64(a - b)))
@@ -19,4 +15,12 @@ func ReverseString(s string) string {
 		runes[i], runes[j] = runes[j], runes[i]
 	}
 	return string(runes)
+}
+
+func MustAtoi(s string) int {
+	result, err := strconv.Atoi(s)
+	if err != nil {
+		panic(err)
+	}
+	return result
 }
