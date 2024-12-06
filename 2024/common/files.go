@@ -2,18 +2,12 @@ package common
 
 import (
 	"bufio"
-	"log"
-	"strconv"
 	"strings"
 )
 
 func ScanWithDelimitersAsInt(scanner *bufio.Scanner, delimiter string) [][]int {
 	return scanWithDelimiters(scanner, delimiter, func(s string) int {
-		num, err := strconv.Atoi(s)
-		if err != nil {
-			log.Fatal("Unable to parse string to int", err)
-		}
-		return num
+		return MustAtoi(s)
 	})
 }
 

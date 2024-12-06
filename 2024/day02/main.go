@@ -3,6 +3,7 @@ package main
 import (
 	"bufio"
 	"common"
+	"slices"
 	"strconv"
 )
 
@@ -16,7 +17,7 @@ func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
 
 	lineWithoutIndex := line
 	if skipIndex != -1 {
-		lineWithoutIndex = common.RemoveIndex(line, skipIndex)
+		lineWithoutIndex = slices.Delete(line, skipIndex, 1)
 	}
 
 	for i := 0; i < len(lineWithoutIndex)-1; i++ {
