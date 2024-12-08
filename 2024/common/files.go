@@ -6,9 +6,7 @@ import (
 )
 
 func ScanWithDelimitersAsInt(scanner *bufio.Scanner, delimiter string) [][]int {
-	return scanWithDelimiters(scanner, delimiter, func(s string) int {
-		return MustAtoi(s)
-	})
+	return scanWithDelimiters(scanner, delimiter, MustAtoi)
 }
 
 func ScanWithDelimiters(scanner *bufio.Scanner, delimiter string) [][]string {
@@ -24,15 +22,18 @@ func scanWithDelimiters[T any](
 
 	for scanner.Scan() {
 		text := scanner.Text()
-		row := strings.Split(text, delimiter)
-		transformed := []T{}
-		for _, cell := range row {
-			transformed = append(transformed, transformer(cell))
-		}
-		rows = append(rows, transformed)
+		rows = append(rows, SplitAndTransform(text, delimiter, transformer))
 	}
 
 	return rows
+}
+
+func SplitAndTransform[T any](input string, delimiter string, transformer func(string) T) []T {
+	result := []T{}
+	for _, s := range strings.Split(input, delimiter) {
+		result = append(result, transformer(s))
+	}
+	return result
 }
 
 func ScanToString(scanner *bufio.Scanner) string {

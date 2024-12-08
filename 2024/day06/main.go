@@ -37,15 +37,10 @@ func getNextPosition(xIndex, yIndex int, direction int) (int, int) {
 	return xIndex + matrix[direction][0], yIndex + matrix[direction][1]
 }
 
-func isOutOfBounds(xIndex, yIndex, xSize, ySize int) bool {
-	return xIndex < 0 || xIndex >= xSize || yIndex < 0 || yIndex >= ySize
-}
-
 type GridRunner struct {
 	grid      [][]string
 	visited   [][]bool
-	xSize     int
-	ySize     int
+	gridSize  common.Grid
 	xIndex    int
 	yIndex    int
 	direction int
@@ -63,8 +58,7 @@ func newGridRunner(grid [][]string) *GridRunner {
 	return &GridRunner{
 		grid:      grid,
 		visited:   visited,
-		xSize:     xSize,
-		ySize:     ySize,
+		gridSize:  common.Grid{SizeX: xSize, SizeY: ySize},
 		xIndex:    xIndex,
 		yIndex:    yIndex,
 		direction: 0,
@@ -107,7 +101,7 @@ func (r *GridRunner) run(checkLoop bool) (int, bool) {
 		nextX, nextY := getNextPosition(r.xIndex, r.yIndex, r.direction)
 
 		// Check for out of bounds
-		if isOutOfBounds(nextX, nextY, r.xSize, r.ySize) {
+		if !r.gridSize.Validate(common.Point{X: nextX, Y: nextY}) {
 			return visitedFields, false
 		}
 
