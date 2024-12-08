@@ -5,14 +5,18 @@ import (
 	"strings"
 )
 
+// Scans the input into a list of rows, where each row is a list of ints
 func ScanWithDelimitersAsInt(scanner *bufio.Scanner, delimiter string) [][]int {
 	return scanWithDelimiters(scanner, delimiter, MustAtoi)
 }
 
+// Scans the input into a list of rows, where each row is a list of strings
 func ScanWithDelimiters(scanner *bufio.Scanner, delimiter string) [][]string {
-	return scanWithDelimiters(scanner, delimiter, func(s string) string { return s })
+	return scanWithDelimiters(scanner, delimiter, id[string])
 }
 
+// Generic utility function to scan the input into a list of rows,
+// where each row is a list of transformed strings
 func scanWithDelimiters[T any](
 	scanner *bufio.Scanner,
 	delimiter string,
@@ -28,6 +32,7 @@ func scanWithDelimiters[T any](
 	return rows
 }
 
+// Splits the input into a list of strings using the delimiter and transforms each string
 func SplitAndTransform[T any](input string, delimiter string, transformer func(string) T) []T {
 	result := []T{}
 	for _, s := range strings.Split(input, delimiter) {
@@ -36,6 +41,7 @@ func SplitAndTransform[T any](input string, delimiter string, transformer func(s
 	return result
 }
 
+// Scans the input into a single string
 func ScanToString(scanner *bufio.Scanner) string {
 	builder := strings.Builder{}
 	for scanner.Scan() {
@@ -44,6 +50,7 @@ func ScanToString(scanner *bufio.Scanner) string {
 	return builder.String()
 }
 
+// Scans the input into a list of lines
 func ScanToLines(scanner *bufio.Scanner) []string {
 	lines := []string{}
 	for scanner.Scan() {
@@ -51,3 +58,6 @@ func ScanToLines(scanner *bufio.Scanner) []string {
 	}
 	return lines
 }
+
+// Identity function -> returns the input
+func id[T any](x T) T { return x }

@@ -3,8 +3,6 @@ package main
 import (
 	"bufio"
 	"common"
-	"strconv"
-	"strings"
 )
 
 func readInput(scanner *bufio.Scanner) ([][]int, [][]int) {
@@ -18,23 +16,15 @@ func readInput(scanner *bufio.Scanner) ([][]int, [][]int) {
 			break
 		}
 
-		parts := strings.Split(line, "|")
-		rule := []int{
-			common.MustAtoi(parts[0]),
-			common.MustAtoi(parts[1]),
-		}
-		rules = append(rules, rule)
+		parts := common.SplitAndTransform(line, "|", common.MustAtoi)
+		rules = append(rules, parts[:2])
 	}
 
 	// Read updates
 	for scanner.Scan() {
 		line := scanner.Text()
-		parts := strings.Split(line, ",")
-		update := make([]int, len(parts))
-		for i, p := range parts {
-			update[i] = common.MustAtoi(p)
-		}
-		updates = append(updates, update)
+		parts := common.SplitAndTransform(line, ",", common.MustAtoi)
+		updates = append(updates, parts)
 	}
 
 	return rules, updates
@@ -82,7 +72,7 @@ func main() {
 	common.Solve(Part2)
 }
 
-func Part1(scanner *bufio.Scanner) string {
+func Part1(scanner *bufio.Scanner) int {
 	rules, updates := readInput(scanner)
 	stateMachine := buildStateMachine(rules)
 
@@ -93,10 +83,10 @@ func Part1(scanner *bufio.Scanner) string {
 		}
 	}
 
-	return strconv.Itoa(result)
+	return result
 }
 
-func Part2(scanner *bufio.Scanner) string {
+func Part2(scanner *bufio.Scanner) int {
 	rules, updates := readInput(scanner)
 	stateMachine := buildStateMachine(rules)
 
@@ -121,5 +111,5 @@ func Part2(scanner *bufio.Scanner) string {
 		}
 	}
 
-	return strconv.Itoa(result)
+	return result
 }

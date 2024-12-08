@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"common"
 	"slices"
-	"strconv"
 )
 
 func main() {
@@ -84,9 +83,9 @@ func (r *GridRunner) run(checkLoop bool) (int, bool) {
 	for {
 		// Mark current position
 		if !checkLoop {
-			if r.grid[r.yIndex][r.xIndex] != "X" {
+			if r.grid[r.yIndex][r.xIndex] != VISITED {
 				visitedFields++
-				r.grid[r.yIndex][r.xIndex] = "X"
+				r.grid[r.yIndex][r.xIndex] = VISITED
 			}
 		} else {
 			currentState := state{r.xIndex, r.yIndex, r.direction}
@@ -106,7 +105,7 @@ func (r *GridRunner) run(checkLoop bool) (int, bool) {
 		}
 
 		// Check for collision
-		if r.grid[nextY][nextX] == "#" {
+		if r.grid[nextY][nextX] == WALL {
 			// Turn right
 			r.direction = (r.direction + 1) % 4
 			continue
@@ -129,15 +128,13 @@ func isLoop(grid [][]string, visited [][]bool) bool {
 	return isLoop
 }
 
-func Part1(scanner *bufio.Scanner) string {
+func Part1(scanner *bufio.Scanner) int {
 	grid := common.ScanWithDelimiters(scanner, "")
 
-	visitedFields := runOverGrid(grid)
-
-	return strconv.Itoa(visitedFields)
+	return runOverGrid(grid)
 }
 
-func Part2(scanner *bufio.Scanner) string {
+func Part2(scanner *bufio.Scanner) int {
 	originalGrid := common.ScanWithDelimiters(scanner, "")
 	xSize, ySize := len(originalGrid[0]), len(originalGrid)
 
@@ -187,5 +184,5 @@ func Part2(scanner *bufio.Scanner) string {
 		}
 	}
 
-	return strconv.Itoa(loops)
+	return loops
 }

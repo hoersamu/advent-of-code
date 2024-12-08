@@ -17,26 +17,26 @@ func openScanner(filename string) (*os.File, *bufio.Scanner) {
 	return file, bufio.NewScanner(file)
 }
 
-func Solve(part func(*bufio.Scanner) string) {
+func Solve[T comparable](part func(*bufio.Scanner) T) {
 	file, scanner := openScanner("./input.txt")
 	defer file.Close()
-	fmt.Printf("Result: %s\n", part(scanner))
+	fmt.Printf("Result: %v\n", part(scanner))
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
 }
 
-func Test(t *testing.T, expected string, part func(*bufio.Scanner) string) {
+func Test[T comparable](t *testing.T, expected T, part func(*bufio.Scanner) T) {
 	TestWithPath(t, expected, part, "./example.txt")
 }
 
-func TestWithPath(t *testing.T, expected string, part func(*bufio.Scanner) string, path string) {
+func TestWithPath[T comparable](t *testing.T, expected T, part func(*bufio.Scanner) T, path string) {
 	file, scanner := openScanner(path)
 	defer file.Close()
 	result := part(scanner)
 	if expected != result {
-		t.Errorf("Result is %s, not %s", result, expected)
+		t.Errorf("Result is %v, not %v", result, expected)
 	}
 }
 

@@ -6,7 +6,7 @@ import (
 )
 
 func Test1(t *testing.T) {
-	common.Test(t, "161", Part1)
+	common.Test(t, 161, Part1)
 }
 
 func Benchmark1(b *testing.B) {
@@ -14,7 +14,7 @@ func Benchmark1(b *testing.B) {
 }
 
 func Test2(t *testing.T) {
-	common.TestWithPath(t, "48", Part2, "./example2.txt")
+	common.TestWithPath(t, 48, Part2, "./example2.txt")
 }
 
 func Benchmark2(b *testing.B) {

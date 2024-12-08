@@ -29,11 +29,11 @@ func main() {
 	common.Solve(Part2)
 }
 
-func Part1(scanner *bufio.Scanner) string {
-	return strconv.Itoa(processMul(common.ScanToString(scanner)))
+func Part1(scanner *bufio.Scanner) int {
+	return processMul(common.ScanToString(scanner))
 }
 
-func Part2(scanner *bufio.Scanner) string {
+func Part2(scanner *bufio.Scanner) int {
 	text := common.ScanToString(scanner)
 
 	parts := strings.Split(text, "do()")
@@ -42,5 +42,5 @@ func Part2(scanner *bufio.Scanner) string {
 		builder.WriteString(strings.Split(part, "don't()")[0])
 	}
 
-	return strconv.Itoa(processMul(builder.String()))
+	return processMul(builder.String())
 }

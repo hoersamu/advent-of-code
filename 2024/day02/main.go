@@ -4,8 +4,9 @@ import (
 	"bufio"
 	"common"
 	"slices"
-	"strconv"
 )
+
+const DELIMITER = " "
 
 func main() {
 	common.Solve(Part1)
@@ -15,9 +16,9 @@ func main() {
 func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
 	isSafe := true
 
-	lineWithoutIndex := line
+	lineWithoutIndex := slices.Clone(line)
 	if skipIndex != -1 {
-		lineWithoutIndex = slices.Delete(line, skipIndex, 1)
+		lineWithoutIndex = slices.Delete(lineWithoutIndex, skipIndex, skipIndex+1)
 	}
 
 	for i := 0; i < len(lineWithoutIndex)-1; i++ {
@@ -38,8 +39,8 @@ func isLineSafe(line []int, isLineAscending bool, skipIndex int) bool {
 	return isSafe
 }
 
-func Part1(scanner *bufio.Scanner) string {
-	records := common.ScanWithDelimitersAsInt(scanner, " ")
+func Part1(scanner *bufio.Scanner) int {
+	records := common.ScanWithDelimitersAsInt(scanner, DELIMITER)
 
 	safeCount := 0
 
@@ -52,11 +53,11 @@ func Part1(scanner *bufio.Scanner) string {
 		}
 	}
 
-	return strconv.Itoa(safeCount)
+	return safeCount
 }
 
-func Part2(scanner *bufio.Scanner) string {
-	records := common.ScanWithDelimitersAsInt(scanner, " ")
+func Part2(scanner *bufio.Scanner) int {
+	records := common.ScanWithDelimitersAsInt(scanner, DELIMITER)
 
 	safeCount := 0
 
@@ -70,5 +71,5 @@ func Part2(scanner *bufio.Scanner) string {
 		}
 	}
 
-	return strconv.Itoa(safeCount)
+	return safeCount
 }

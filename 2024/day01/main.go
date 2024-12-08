@@ -4,19 +4,19 @@ import (
 	"bufio"
 	"common"
 	"sort"
-	"strconv"
 )
+
+const DELIMITER = "   "
 
 func main() {
 	common.Solve(Part1)
 	common.Solve(Part2)
 }
 
-func Part1(scanner *bufio.Scanner) string {
-	records := common.ScanWithDelimitersAsInt(scanner, "   ")
+func Part1(scanner *bufio.Scanner) int {
+	records := common.ScanWithDelimitersAsInt(scanner, DELIMITER)
 
-	var list1 []int
-	var list2 []int
+	var list1, list2 []int
 	for _, record := range records {
 		list1 = append(list1, record[0])
 		list2 = append(list2, record[1])
@@ -31,11 +31,12 @@ func Part1(scanner *bufio.Scanner) string {
 		totalDistance += common.GetDistance(record, list2[i])
 	}
 
-	return strconv.Itoa(totalDistance)
+	return totalDistance
 }
 
-func Part2(scanner *bufio.Scanner) string {
-	records := common.ScanWithDelimitersAsInt(scanner, "   ")
+func Part2(scanner *bufio.Scanner) int {
+	records := common.ScanWithDelimitersAsInt(scanner, DELIMITER)
+
 	var list1 []int
 	list2 := make(map[int]int)
 
@@ -50,5 +51,5 @@ func Part2(scanner *bufio.Scanner) string {
 		similarityScore += num * list2[num]
 	}
 
-	return strconv.Itoa(similarityScore)
+	return similarityScore
 }

@@ -3,7 +3,6 @@ package main
 import (
 	"bufio"
 	"common"
-	"strconv"
 )
 
 func main() {
@@ -11,13 +10,13 @@ func main() {
 	common.Solve(Part2)
 }
 
-func Part1(scanner *bufio.Scanner) string {
+func Part1(scanner *bufio.Scanner) int {
 	grid := common.ScanToLines(scanner)
 	count := 0
 	rows := len(grid)
 	cols := len(grid[0])
-	word := "XMAS"
-	wordLen := len(word)
+	const word = "XMAS"
+	const wordLen = len(word)
 
 	// Single loop to check all directions
 	for row := 0; row < rows; row++ {
@@ -43,10 +42,10 @@ func Part1(scanner *bufio.Scanner) string {
 			}
 		}
 	}
-	return strconv.Itoa(count)
+	return count
 }
 
-func Part2(scanner *bufio.Scanner) string {
+func Part2(scanner *bufio.Scanner) int {
 	grid := common.ScanToLines(scanner)
 	count := 0
 	rows := len(grid)
@@ -72,5 +71,5 @@ func Part2(scanner *bufio.Scanner) string {
 			}
 		}
 	}
-	return strconv.Itoa(count)
+	return count
 }
