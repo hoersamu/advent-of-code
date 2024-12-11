@@ -6,7 +6,7 @@ import (
 )
 
 func Test1(t *testing.T) {
-	common.Test(t, 0, Part1)
+	common.Test(t, 1928, Part1)
 }
 
 func Benchmark1(b *testing.B) {
@@ -14,7 +14,7 @@ func Benchmark1(b *testing.B) {
 }
 
 func Test2(t *testing.T) {
-	common.Test(t, 0, Part2)
+	common.Test(t, 2858, Part2)
 }
 
 func Benchmark2(b *testing.B) {

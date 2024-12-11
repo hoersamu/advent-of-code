@@ -10,10 +10,10 @@ func main() {
 	common.Solve(Part2)
 }
 
-func Part1(scanner *bufio.Scanner) string {
-	return ""
+func Part1(scanner *bufio.Scanner) int {
+	return 0
 }
 
-func Part2(scanner *bufio.Scanner) string {
-	return ""
+func Part2(scanner *bufio.Scanner) int {
+	return 0
 }

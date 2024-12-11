@@ -29,3 +29,11 @@ func MustAtoi(s string) int {
 	}
 	return result
 }
+
+func IsEven(n int) bool {
+	return n%2 == 0
+}
+
+func GetNumberOfDigits(n int) int {
+	return len(strconv.Itoa(n))
+}
